@@ -9,18 +9,23 @@
     "dev": "ts-node src/index.ts",
     "watch": "tsc --watch"
   },
-  "keywords": ["minecraft", "mineflayer", "bot"],
+  "keywords": [
+    "minecraft",
+    "mineflayer",
+    "bot"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "mineflayer": "^4.20.1",
     "mineflayer-pathfinder": "^2.4.4",
+    "prismarine-auth": "^2.7.0",
     "ws": "^8.16.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/ws": "^8.5.10",
-    "typescript": "^5.3.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

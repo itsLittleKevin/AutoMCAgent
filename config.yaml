@@ -2,10 +2,10 @@
 # Copy this to config.local.yaml and adjust for your setup
 
 bot:
-  host: "localhost"
+  host: "mc.itslittlekevin.com"
   port: 25565
   username: "AutoMCAgent"
-  version: "1.20.1"  # Adjust to match your server
+  version: "1.21.1"  # Paper server with backwards compatibility
 
 bridge:
   host: "localhost"

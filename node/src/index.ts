@@ -9,21 +9,25 @@ import { Bridge } from './bridge';
 
 // Configuration - TODO: Load from config file
 const BOT_CONFIG = {
-  host: 'localhost',
+  host: 'mc.itslittlekevin.com',
   port: 25565,
-  username: 'AutoMCAgent',
-  version: '1.20.1', // Adjust to your server version
-  bridgePort: 8765
+  username: 'AutoMCAgent', // Microsoft account email
+  version: '1.21.1', // Paper server with backwards compatibility
+  bridgePort: 8765,
+  auth: 'microsoft' // Use Microsoft authentication
 };
 
-function createBot(): Bot {
+async function createBot(): Promise<Bot> {
   console.log('[Bot] Creating Mineflayer bot...');
+  console.log('[Auth] Using Microsoft authentication - device code flow');
+  console.log('[Auth] You will need to visit the URL and enter the code shown');
   
   const bot = mineflayer.createBot({
     host: BOT_CONFIG.host,
     port: BOT_CONFIG.port,
     username: BOT_CONFIG.username,
-    version: BOT_CONFIG.version
+    version: BOT_CONFIG.version,
+    auth: BOT_CONFIG.auth as any
   });
 
   // Load pathfinder plugin
@@ -79,10 +83,10 @@ function setupBotEvents(bot: Bot, bridge: Bridge) {
   });
 }
 
-function main() {
+async function main() {
   console.log('[Main] Starting AutoMCAgent bot...');
   
-  const bot = createBot();
+  const bot = await createBot();
   const bridge = new Bridge(bot, BOT_CONFIG.bridgePort);
   
   setupBotEvents(bot, bridge);
