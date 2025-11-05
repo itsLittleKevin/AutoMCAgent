@@ -90,12 +90,36 @@ export class Bridge {
   }
 
   public sendState() {
-    // TODO: Implement in Phase 0 - gather full bot state
+    // Gather comprehensive bot state
     const state = {
       health: this.bot.health,
       food: this.bot.food,
-      position: this.bot.entity.position
-      // ... more state fields
+      foodSaturation: this.bot.foodSaturation,
+      position: {
+        x: this.bot.entity.position.x,
+        y: this.bot.entity.position.y,
+        z: this.bot.entity.position.z
+      },
+      velocity: {
+        x: this.bot.entity.velocity.x,
+        y: this.bot.entity.velocity.y,
+        z: this.bot.entity.velocity.z
+      },
+      yaw: this.bot.entity.yaw,
+      pitch: this.bot.entity.pitch,
+      onGround: this.bot.entity.onGround,
+      isInWater: (this.bot.entity as any).isInWater || false,
+      isInLava: (this.bot.entity as any).isInLava || false,
+      isCollidedHorizontally: (this.bot.entity as any).isCollidedHorizontally || false,
+      isCollidedVertically: (this.bot.entity as any).isCollidedVertically || false,
+      biome: this.bot.blockAt(this.bot.entity.position)?.biome || null,
+      lightLevel: this.bot.entity.position.y >= 0 ? 
+        this.bot.blockAt(this.bot.entity.position)?.light || 0 : 0,
+      experience: {
+        level: this.bot.experience.level,
+        points: this.bot.experience.points,
+        progress: this.bot.experience.progress
+      }
     };
 
     this.sendMessage({

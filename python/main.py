@@ -45,13 +45,31 @@ async def main():
         port=config['bridge']['port']
     )
     
+    # Track last state for comparison
+    last_state = {}
+    
+    # Register state handler
+    async def handle_state(state):
+        nonlocal last_state
+        # Log significant state changes
+        if not last_state or state.get('health') != last_state.get('health'):
+            logger.info(f"Health: {state.get('health')}/20")
+        if not last_state or state.get('food') != last_state.get('food'):
+            logger.info(f"Hunger: {state.get('food')}/20")
+        if not last_state or abs(state.get('position', {}).get('y', 0) - last_state.get('position', {}).get('y', 0)) > 5:
+            pos = state.get('position', {})
+            logger.info(f"Position: ({pos.get('x', 0):.1f}, {pos.get('y', 0):.1f}, {pos.get('z', 0):.1f})")
+        last_state = state
+    
+    bridge.register_handler('state', handle_state)
+    
     try:
         await bridge.connect()
         logger.info("Connected to Mineflayer bridge")
         
-        # Phase 0: Just maintain connection and log state
+        # Phase 0: Monitor bot state
         while True:
-            # TODO Phase 0: Request and log bot state
+            # State updates come automatically every 100ms from TypeScript
             # TODO Phase 1: Add reflex system
             # TODO Phase 2: Add skill executor
             # TODO Phase 3: Add goal system
