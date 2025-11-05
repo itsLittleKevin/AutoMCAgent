@@ -1,0 +1,28 @@
+# AutoMCAgent Configuration
+# Copy this to config.local.yaml and adjust for your setup
+
+bot:
+  host: "localhost"
+  port: 25565
+  username: "AutoMCAgent"
+  version: "1.20.1"  # Adjust to match your server
+
+bridge:
+  host: "localhost"
+  port: 8765
+
+phases:
+  enabled: 0  # 0 = foundation only, 1 = reflexes, 2 = skills, 3 = goals, 5 = LLM
+
+reflexes:
+  health_threshold: 10  # Flee when health below this
+  hunger_threshold: 14  # Eat when food below this
+  danger_distance: 16   # Distance to consider hostile mobs dangerous
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "logs/automcagent.log"
+
+memory:
+  database: "python/memory/agent_memory.db"
+  short_term_limit: 100  # Number of recent actions to keep in memory
